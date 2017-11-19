@@ -22,6 +22,18 @@ void eat(int n)
   sleep(1);
 
 }
+void chop(int n,int d)
+{
+   if(d==1)
+  printf("\nPhilosopher %d takes left chopstick\n",n);
+  if(d==2)
+  printf("\nPhilosopher %d takes right chopstick\n",n);
+  if(d==3)
+  printf("\nPhilosopher %d releases left chopstick\n",n);
+  if(d==4)
+  printf("\nPhilosopher %d takes right chopstick\n",n);
+
+}
 void *philo(int n)
 {
 while (1 ){
@@ -30,10 +42,14 @@ hungry(n);
 int left=(n-1)%philosopher;
 int right=(n+1)%philosopher;
 sem_wait(&chopstick[left]);
+chop(n,1);
 sem_wait(&chopstick[right]);
+chop(n,2);
 eat(n);
 sem_post(&chopstick[left]);
+chop(n,3);
 sem_post(&chopstick[right]);
+chop(n,4);
 think(n);
 }
 
