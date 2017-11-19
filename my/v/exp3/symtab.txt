@@ -1,0 +1,4 @@
+ALPHA	1
+FIVE	5
+CHARZ	C'Z'
+C1	1
