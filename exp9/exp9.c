@@ -15,21 +15,15 @@ float et;
  /*
 p[i].wt=p[i-1].burst_time+p[i-1].wt-p[i].at;
 p[i].tt=p[i].wt+p[i].burst_time;
-
-
-
 p[i].wt=0;
 p[i].tt=p[i].burst_time;
-
 p[i].wt=p[i-1].tt-p[i].at;
 p[i].tt=p[i].wt+p[i].burst_time;
-
-
 */
 void fcfs(struct process p[],int n)
 {
 int i,j;
-float tot_tt=0,tot_wt=0,exec;
+float tot_tt=0,tot_wt=0,exec,fexec;
 for(i=0;i<n;i++)
 {
 for(j=i-1;j<n-i-1;j++)
@@ -45,10 +39,11 @@ p[i+1]=temp;
 }
 } 
 exec=p[0].at;
+fexec=exec;
 p[0].wt=0;
-p[0].et=exec;
 exec+=p[0].burst_time;
 p[0].tt=p[0].burst_time;
+p[0].et=exec;
 for(i=1;i<n;i++)
 {
 
@@ -66,7 +61,7 @@ exec+=p[i].burst_time;
 }
 p[i].wt=p[i].et-p[i].at;
 p[i].tt=p[i].et+p[i].burst_time-p[i].at;
-
+p[i].et=exec;
 }
 
 for(i=0;i<n;i++)
@@ -82,9 +77,10 @@ printf("\nP %d\t %f\t %f\t %f\t %f\t %f ",p[i].pno,p[i].burst_time,p[i].at,p[i].
 
 }
 printf("\n------------------------------------------------------\n");
+printf("(%f)",fexec);
 for(i=0;i<n;i++)
 {
-printf("%d (%f)\t",p[i].pno,p[i].et);
+printf("P %d (%f)\t",p[i].pno,p[i].et);
 }
 printf("\n------------------------------------------------------\n");
 printf("\nAverage Turnaround Time : %f",tot_tt/n);
